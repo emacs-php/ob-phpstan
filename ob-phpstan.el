@@ -52,7 +52,7 @@
         (body (concat "<?php\n" body))
         (level (or (cdr (assoc :level params)) org-babel-phpstan-level)))
     (with-temp-file tmp-file (insert (org-babel-expand-body:generic body params)))
-    (org-babel-eval (format "%s analyze %s --level %s"
+    (org-babel-eval (format "%s analyze %s --level %s --no-progress"
                             org-babel-phpstan-command
                             (org-babel-process-file-name tmp-file)
                             level)
