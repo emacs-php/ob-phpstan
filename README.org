@@ -1,1 +1,53 @@
+#+STARTUP: content
+#+STARTUP: nohideblocks
 * ob-phpstan
+
+This org-mode babel extension enables you to execute phpstan code blocks.
+
+** Install
+*** Requirement
+
+You need to install [[https://phpstan.org/][phpstan]] to use this extension.
+
+*** with Melpa
+
+yet
+
+*** with Manually
+
+Add ob-phpstan.el to your load-path and require.
+
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "/path/to/ob-phpstan.el")
+  (require 'ob-phpstan)
+#+end_src
+
+** Configure
+#+begin_src emacs-lisp
+  (eval-after-load "org" '(add-to-list 'org-src-lang-modes '("phpstan" . phpstan)))
+#+end_src
+** Example
+
+#+begin_src phpstan :level 0
+  class HelloWorld
+  {
+          public function sayHello(DateTimeImutable $date): void
+          {
+                  echo 'Hello, ' . $date->format('j. n. Y');
+          }
+  }
+#+end_src
+
+#+RESULTS:
+#+begin_example
+ ------ ----------------------------------------------------------------------------------
+  Line   /var/folders/z5/sk1q5qj96xg4g87vkcp4hq9h0000gn/T/babel-TGYZJB/phpstan-ulqeYI.php
+ ------ ----------------------------------------------------------------------------------
+  4      Parameter $date of method HelloWorld::sayHello() has invalid type
+         DateTimeImutable.
+ ------ ----------------------------------------------------------------------------------
+
+
+ [ERROR] Found 1 error
+
+#+end_example
