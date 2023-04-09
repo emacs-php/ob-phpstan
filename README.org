@@ -29,7 +29,7 @@ Add ob-phpstan.el to your load-path and require.
 ** Example
 
 #+begin_src org
-  ,#+begin_src phpstan :level 0 :noweb yes
+  ,#+begin_src phpstan :level 0
     class HelloWorld
     {
             public function sayHello(DateTimeImutable $date): void
