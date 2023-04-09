@@ -28,26 +28,28 @@ Add ob-phpstan.el to your load-path and require.
 #+end_src
 ** Example
 
-#+begin_src phpstan :level 0
-  class HelloWorld
-  {
-          public function sayHello(DateTimeImutable $date): void
-          {
-                  echo 'Hello, ' . $date->format('j. n. Y');
-          }
-  }
+#+begin_src org
+  ,#+begin_src phpstan :level 0 :noweb yes
+    class HelloWorld
+    {
+            public function sayHello(DateTimeImutable $date): void
+            {
+                    echo 'Hello, ' . $date->format('j. n. Y');
+            }
+    }
+  ,#+end_src
+
+  ,#+RESULTS:
+  ,#+begin_example
+   ------ ----------------------------------------------------------------------------------
+    Line   /var/folders/z5/sk1q5qj96xg4g87vkcp4hq9h0000gn/T/babel-TGYZJB/phpstan-ulqeYI.php
+   ------ ----------------------------------------------------------------------------------
+    4      Parameter $date of method HelloWorld::sayHello() has invalid type
+           DateTimeImutable.
+   ------ ----------------------------------------------------------------------------------
+
+
+   [ERROR] Found 1 error
+
+  ,#+end_example
 #+end_src
-
-#+RESULTS:
-#+begin_example
- ------ ----------------------------------------------------------------------------------
-  Line   /var/folders/z5/sk1q5qj96xg4g87vkcp4hq9h0000gn/T/babel-TGYZJB/phpstan-ulqeYI.php
- ------ ----------------------------------------------------------------------------------
-  4      Parameter $date of method HelloWorld::sayHello() has invalid type
-         DateTimeImutable.
- ------ ----------------------------------------------------------------------------------
-
-
- [ERROR] Found 1 error
-
-#+end_example
