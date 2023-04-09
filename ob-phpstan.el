@@ -35,21 +35,33 @@
   "org-mode blocks for fish script"
   :group 'org)
 
-(defcustom org-babel-phpstan-command "~/.asdf/installs/php/8.2.3/.composer/vendor/bin/phpstan"
+(defcustom org-babel-phpstan-command "phpstan"
   "The command to execute babel body code."
   :group 'ob-phpstan
   :type 'string)
 
-(defcustom org-babel-phpstan-command-options nil
+(defcustom org-babel-phpstan-level 5
   "The fish command options to use when execute code."
   :group 'ob-phpstan
-  :type 'list)
+  :type 'number)
 
 ;;;###autoload
-(defun org-babel-execute:phpstan (body _)
+(defun org-babel-execute:phpstan (body params)
   "Org mode fish evaluate function"
-  (let ((cmd (concat org-babel-phpstan-command " " (mapconcat 'string org-babel-phpstan-command-options " "))))
-    (org-babel-eval cmd body)))
+  (let ((tmp-file (org-babel-temp-file "phpstan-" ".php"))
+        (body (concat "<?php\n" body))
+        (level org-babel-phpstan-level))
+    (with-temp-file tmp-file (insert (org-babel-expand-body:generic body params)))
+
+    (org-babel-eval (format "%s analyze %s --level %s"
+                            org-babel-phpstan-command
+                            (org-babel-process-file-name tmp-file)
+                            level)
+                    "")))
+
+;;;###autoload
+(eval-after-load "org"
+  '(add-to-list 'org-src-lang-modes '("phpstan" . phpstan)))
 
 (provide 'ob-phpstan)
 
