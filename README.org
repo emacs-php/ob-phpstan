@@ -23,6 +23,13 @@ Add ob-phpstan.el to your load-path and require.
 #+end_src
 
 ** Configure
+
+add phpstan-mode:
+#+begin_src emacs-lisp
+  (define-derived-mode phpstan-mode php-mode "phpstan")
+#+end_src
+
+add org-src-lang-modes:
 #+begin_src emacs-lisp
   (eval-after-load "org" '(add-to-list 'org-src-lang-modes '("phpstan" . phpstan)))
 #+end_src
