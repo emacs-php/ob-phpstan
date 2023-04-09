@@ -32,7 +32,7 @@
 (require 'ob)
 
 (defgroup ob-phpstan nil
-  "org-mode blocks for fish script"
+  "org-mode blocks for phpstan"
   :group 'org)
 
 (defcustom org-babel-phpstan-command "phpstan"
@@ -41,7 +41,7 @@
   :type 'string)
 
 (defcustom org-babel-phpstan-level 5
-  "The fish command options to use when execute code."
+  "Set phpstan level."
   :group 'ob-phpstan
   :type 'number)
 
