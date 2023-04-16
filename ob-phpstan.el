@@ -1,38 +1,37 @@
-;;; ob-phpstan.el --- run phpstan with org-babel -*- lexical-binding: t -*-
+;;; ob-phpstan.el --- Babel Functions for PHPStan    -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2023  Takeo Obara
 
 ;; Author: Takeo Obara <bararararatty@gmail.com>
-;; Maintainer: Takeo Obara
-;; Version: v1.0.0
-;; Package-Requires: ((emacs "29.0"))
-;; Homepage: https://github.com/takeokunn/ob-phpstan
-;; Keywords: phpstan, org, babel
+;; Version: 0.0.1
+;; Package-Requires: ((emacs "28") (org "9"))
+;; Homepage: https://github.com/emacs-php/ob-phpstan
+;; Keywords: tools, org, literate programming, reproducible research, php
+;; License: GPL-3.0-or-later
 
-;; This file is not part of GNU Emacs
-
-;; This file is free software; you can redistribute it and/or modify
+;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation; either version 3, or (at your option)
-;; any later version.
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
 
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
 
-;; For a full copy of the GNU General Public License
-;; see <http://www.gnu.org/licenses/>.
-
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;; Commentary:
 
-;; run phpstan with org-babel
+;; Static analyze a block of PHP code with org-babel using PHPStan.
 
 ;;; Code:
 (require 'org)
 (require 'ob)
 
 (defgroup ob-phpstan nil
-  "org-mode blocks for phpstan"
+  "org-mode blocks for PHPStan."
   :group 'org)
 
 (defcustom org-babel-phpstan-command "phpstan"
@@ -47,7 +46,8 @@
 
 ;;;###autoload
 (defun org-babel-execute:phpstan (body params)
-  "Org mode fish evaluate function"
+  "Static analyze a block of PHP code with org-babel using PHPStan.
+This function is called by `org-babel-execute-src-block'."
   (let ((tmp-file (org-babel-temp-file "phpstan-" ".php"))
         (body (if (string-prefix-p "<" body)
                   body
@@ -65,5 +65,4 @@
   '(add-to-list 'org-src-lang-modes '("phpstan" . phpstan)))
 
 (provide 'ob-phpstan)
-
 ;;; ob-phpstan.el ends here
