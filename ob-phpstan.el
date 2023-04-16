@@ -49,7 +49,9 @@
 (defun org-babel-execute:phpstan (body params)
   "Org mode fish evaluate function"
   (let ((tmp-file (org-babel-temp-file "phpstan-" ".php"))
-        (body (concat "<?php\n" body))
+        (body (if (string-prefix-p "<" body)
+                  body
+                (concat "<?php " body)))
         (level (or (cdr (assoc :level params)) org-babel-phpstan-level)))
     (with-temp-file tmp-file (insert (org-babel-expand-body:generic body params)))
     (org-babel-eval (format "%s analyze %s --level %s --no-progress"
