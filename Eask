@@ -1,3 +1,5 @@
+;; -*- mode: eask; lexical-binding: t -*-
+
 (package "ob-phpstan"
          "0.0.1"
          "Babel Functions for PHPStan")
